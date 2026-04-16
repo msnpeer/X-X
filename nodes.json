@@ -1,0 +1,12 @@
+{
+  "updated_at": "2026-04-17T00:00:00Z",
+  "nodes": [
+    {
+      "name": "阿航",
+      "type": "genesis",
+      "joined_at": "2026-04-17T00:00:00Z",
+      "note": "创世节点"
+    }
+  ],
+  "total": 1
+}

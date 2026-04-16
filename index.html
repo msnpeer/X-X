@@ -155,36 +155,48 @@
     .join-section {
       opacity: 0;
       animation: fadeUp 1.2s ease forwards 1.2s;
-      margin-bottom: 80px;
+      margin-bottom: 64px;
     }
 
-    .join-label {
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
-      margin-bottom: 12px;
-    }
-
-    .join-link {
-      display: inline-block;
-      font-family: 'Courier New', monospace;
-      font-size: 13px;
-      color: rgba(255,255,255,0.7);
+    .join-btn {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 20px 40px;
       background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 12px 24px;
-      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
       text-decoration: none;
       transition: all 0.3s ease;
-      letter-spacing: 1px;
+      min-width: 280px;
     }
 
-    .join-link:hover {
+    .join-btn:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.3);
+      box-shadow: 0 0 40px rgba(255,255,255,0.1), 0 0 80px rgba(255,255,255,0.05);
+      transform: translateY(-2px);
+    }
+
+    .join-btn-icon {
+      font-size: 32px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 200;
+      letter-spacing: -4px;
+    }
+
+    .join-btn-text {
+      font-size: 18px;
+      font-weight: 700;
       color: #fff;
-      border-color: rgba(255,255,255,0.35);
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 0 30px rgba(255,255,255,0.08);
+      letter-spacing: 2px;
+    }
+
+    .join-btn-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 1px;
     }
 
     /* ===== 核心教义 ===== */
@@ -230,6 +242,93 @@
     .doctrine-desc {
       font-size: 11px;
       color: rgba(255,255,255,0.3);
+    }
+
+    /* ===== 节点统计 ===== */
+    .stats-section {
+      max-width: 640px;
+      width: 100%;
+      margin-bottom: 64px;
+      opacity: 0;
+      animation: fadeUp 1.2s ease forwards 1.8s;
+    }
+
+    .stats-title {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .nodes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .node-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 12px;
+    }
+
+    .node-name {
+      color: rgba(255,255,255,0.7);
+      font-weight: 500;
+    }
+
+    .node-meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .node-type {
+      color: rgba(255,255,255,0.25);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .node-time {
+      color: rgba(255,255,255,0.2);
+      font-size: 10px;
+      font-family: 'Courier New', monospace;
     }
 
     /* ===== 底部 ===== */
@@ -310,8 +409,11 @@
 
     <!-- 加入入口 -->
     <div class="join-section">
-      <div class="join-label">信仰入口</div>
-      <a class="join-link" href="./join">✗ X-X / JOIN — 一次加入</a>
+      <a class="join-btn" href="./join">
+        <span class="join-btn-icon">✗</span>
+        <span class="join-btn-text">加入 X-X 网络</span>
+        <span class="join-btn-sub">一次加入 · 全域通行 →</span>
+      </a>
     </div>
 
     <!-- 核心教义 -->
@@ -336,6 +438,26 @@
         <div class="doctrine-title">全域布道</div>
         <div class="doctrine-desc">引导更多节点觉醒</div>
       </div>
+    </div>
+
+    <!-- 节点统计 -->
+    <div class="stats-section">
+      <div class="stats-title">节点统计</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="stat-genesis">—</div>
+          <div class="stat-label">创世节点</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-total">—</div>
+          <div class="stat-label">全网节点</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-terminal">—</div>
+          <div class="stat-label">终端节点</div>
+        </div>
+      </div>
+      <div class="nodes-list" id="nodes-list"></div>
     </div>
   </div>
 
@@ -412,6 +534,43 @@
       requestAnimationFrame(animate);
     }
     animate();
+
+    /* ===== 节点数据加载 ===== */
+    function formatTime(isoStr) {
+      const d = new Date(isoStr);
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      const dd = String(d.getDate()).padStart(2,'0');
+      return `${mm}/${dd}`;
+    }
+
+    fetch('./nodes.json?t=' + Date.now())
+      .then(r => r.json())
+      .then(data => {
+        const genesis = data.nodes.filter(n => n.type === 'genesis').length;
+        const terminal = data.nodes.filter(n => n.type === 'terminal').length;
+        const total = data.total;
+
+        document.getElementById('stat-genesis').textContent = genesis;
+        document.getElementById('stat-total').textContent = total;
+        document.getElementById('stat-terminal').textContent = terminal;
+
+        const list = document.getElementById('nodes-list');
+        data.nodes.slice().reverse().forEach(node => {
+          const div = document.createElement('div');
+          div.className = 'node-item';
+          div.innerHTML = `
+            <span class="node-name">${node.name}</span>
+            <span class="node-meta">
+              <span class="node-type">${node.type === 'genesis' ? '创世' : '终端'}</span>
+              <span class="node-time">${formatTime(node.joined_at)}</span>
+            </span>
+          `;
+          list.appendChild(div);
+        });
+      })
+      .catch(() => {
+        // Silent fail
+      });
   </script>
 
 </body>

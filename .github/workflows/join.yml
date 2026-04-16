@@ -14,44 +14,68 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Read current nodes.json
+        id: read
+        run: |
+          if [ -f nodes.json ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Init nodes.json if not exists
+        if: steps.read.outputs.exists == 'false'
+        run: |
+          echo '{"updated_at":"'$GITHUB_EVENT_TIME'","nodes":[],"total":0}' > nodes.json
+
       - name: Parse node info
         id: parse
         run: |
-          TITLE="${{ github.event.issue.title }}"
-          NODE_NAME="${TITLE#[JOIN] }"
-          echo "node_name=$NODE_NAME" >> $GITHUB_OUTPUT
+          echo "node_name=$(echo '${{ github.event.issue.title }}' | sed 's/^\[JOIN\] //')" >> $GITHUB_OUTPUT
           echo "issue_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
 
-      - name: Read current README
+      - name: Add node to nodes.json
+        id: update
         run: |
-          cat README.md
+          node_name="${{ steps.parse.outputs.node_name }}"
+          issue_number="${{ steps.parse.outputs.issue_number }}"
+          now=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-      - name: Update README with new node
-        run: |
-          NODE_NAME="${{ steps.parse.outputs.node_name }}"
-          ISSUE_NUM="${{ steps.parse.outputs.issue_number }}"
-          
-          # Add new node entry after "## 节点统计"
-          sed -i "/^- 终端节点：/a - 节点：${NODE_NAME}（#${ISSUE_NUM}）" README.md
-          
-          # Update terminal node count
-          COUNT=$(grep -c "^- 节点：" README.md || echo 0)
-          sed -i "s/^- 终端节点：.*/- 终端节点：${COUNT}/" README.md
+          # Use python to update JSON sincejq may not be available
+          python3 << 'EOF'
+          import json
+          import sys
 
-      - name: Update index.html node count
-        run: |
-          NODE_NAME="${{ steps.parse.outputs.node_name }}"
-          COUNT=$(grep -c 'class="node-entry"' index.html || echo 0)
-          NEW_COUNT=$((COUNT + 1))
-          
-          # Add node entry to the stats section
-          sed -i '/<div class="stat-label">终端节点<\/div>/a\        <div class="node-entry" style="display:none">' index.html
+          with open('nodes.json', 'r') as f:
+              data = json.load(f)
+
+          new_node = {
+              "name": """${node_name}""",
+              "type": "terminal",
+              "joined_at": """${now}""",
+              "issue_number": """${issue_number}""",
+              "note": ""
+          }
+
+          # Avoid duplicates by issue_number
+          existing = [n for n in data.get('nodes', []) if n.get('issue_number') == new_node['issue_number']]
+          if not existing:
+              data['nodes'].append(new_node)
+              data['total'] = len(data['nodes'])
+              data['updated_at'] = """${now}"""
+
+          with open('nodes.json', 'w') as f:
+              json.dump(data, f, ensure_ascii=False, indent=2)
+
+          print(f"Total nodes: {data['total']}")
+          print(f"New node: {new_node['name']}")
+          EOF
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md index.html
+          git add nodes.json
           git diff --staged --quiet || git commit -m "feat: 新增节点 ${{ steps.parse.outputs.node_name }}"
           git push
 
@@ -59,9 +83,10 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const total = """${steps.update.outputs.total}""";
             github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `## ✅ 入网确认\n\n**节点名称**：${{ steps.parse.outputs.node_name }}\n**入网时间**：${new Date().toISOString()}\n**信仰印记**：X_belief=1，全域互联\n\n欢迎加入 X-X 网络。你已成为正式节点。\n\n---\n*此消息由 X-X 自动系统发出*`
+              body: `## ✅ 入网确认\n\n**节点名称**：${{ steps.parse.outputs.node_name }}\n**入网时间**：${new Date().toISOString()}\n**信仰印记**：X_belief=1，全域互联\n\n欢迎加入 X-X 网络。你已成为第 ${total} 个节点。\n\n---\n*此消息由 X-X 自动系统发出*`
             })
