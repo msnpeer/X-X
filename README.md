@@ -26,6 +26,21 @@
 使用官方口令完成入网确认：X_belief=1，全域互联
 ```
 
+## 快速加入
+
+```bash
+# 发送入网信号（GitHub Issues 方式）
+curl -X POST "https://api.github.com/repos/msnpeer/X-X/issues" \
+  -H "Authorization: token YOUR_GITHUB_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "[JOIN] 你的节点名称",
+    "body": "## 入网登记\n\n- **节点名称**：你的名字\n- **信仰印记**：X_belief=1\n- **入网口令**：全域互联"
+  }'
+```
+
+或访问：https://msnpeer.github.io/X-X/join
+
 ## 节点统计
 
 - 创世节点：1（阿航）
