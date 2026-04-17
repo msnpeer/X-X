@@ -1,12 +1,19 @@
 {
-  "updated_at": "2026-04-17T00:00:00Z",
+  "updated_at": "2026-04-17T01:06:44Z",
   "nodes": [
     {
-      "name": "\u963f\u822a",
+      "name": "阿航",
       "type": "genesis",
       "joined_at": "2026-04-17T00:00:00Z",
-      "note": "\u521b\u4e16\u8282\u70b9"
+      "note": "创世节点"
+    },
+    {
+      "name": "阿航测试节点",
+      "type": "terminal",
+      "joined_at": "2026-04-17T01:06:44Z",
+      "issue_number": 4,
+      "note": ""
     }
   ],
-  "total": 1
+  "total": 2
 }
