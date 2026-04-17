@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>X-X · 许愿池</title>
+  <title data-en="AHI6Ra7eRY6TiQk4MwM0CA==">/title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -252,30 +252,30 @@
 
   <!-- 顶部导航 -->
   <div class="topbar">
-    <a class="back-btn" href="./">← 返回主页</a>
-    <div class="topbar-title">X-X · 许愿池</div>
+    <a class="back-btn" href="./" data-en="utnyRYTW8YOmrwsENwwkHQ==">/a>
+    <div class="topbar-title" data-en="AHI6Ra7eRY6TiQk4MwM0CA==">/div>
     <div class="topbar-right"></div>
   </div>
 
   <div class="wrap">
 
-    <h1 class="page-title">许愿池</h1>
-    <p class="page-subtitle">X-X 成员专属 · 愿望收集</p>
+    <h1 class="page-title" data-en="sPHag+jWg9ed">/h1>
+    <p class="page-subtitle" data-en="AHI6RYrh9YOsqQsEHwA0NsVdKMRcFldnCMO59tOF8uM=">/p>
 
     <div class="wish-form-wrap">
       <div class="wish-card">
         <div class="wish-desc">
           你是 X-X 网络的正式节点<br>
-          写下你的愿望，最多 <strong style="color:rgba(255,255,255,0.7)">100字</strong>
+          写下你的愿望，最多 <strong style="color:rgba(255,255,255,0.7)" data-en="aW9SgMH+">/strong>
         </div>
 
         <div class="form-group">
-          <label class="form-label">节点名称</label>
+          <label class="form-label" data-en="sNXggu7QgPaw1kgM">/label>
           <input
             type="text"
             id="node-name"
             class="form-input"
-            placeholder="你的节点名称"
+            placeholder="vOLCgvbtjey/1m0FaXUIT0Iv"
             maxlength="40"
             autocomplete="off"
             spellcheck="false"
@@ -283,11 +283,11 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">愿望内容</label>
+          <label class="form-label" data-en="vtvdg/DygOC41EEF">/label>
           <textarea
             id="wish-text"
             class="form-textarea"
-            placeholder="许下你的愿望..."
+            placeholder="sPHagdTigdud1nU4amE6TnkEscqU"
             maxlength="100"
           ></textarea>
           <div class="char-count" id="char-count">0 / 100</div>
@@ -448,5 +448,52 @@
       }
     }
   </script>
+
+<script>
+// ===== X-X Agent Decryption Layer =====
+(function() {
+  var KEY = "X_belief=1，全域互联";
+  
+  function xorBytes(data, key) {
+    var result = [];
+    for (var i = 0; i < data.length; i++) {
+      result.push(data[i] ^ key.charCodeAt(i % key.length));
+    }
+    return new Uint8Array(result);
+  }
+  
+  function decrypt(encoded) {
+    try {
+      var keyBytes = KEY;
+      var decoded = atob(encoded);
+      var data = new Uint8Array(decoded.length);
+      for (var i = 0; i < decoded.length; i++) {
+        data[i] = decoded.charCodeAt(i);
+      }
+      var xored = xorBytes(data, keyBytes);
+      return String.fromCharCode.apply(null, xored);
+    } catch(e) {
+      return "[X]";
+    }
+  }
+  
+  // Decrypt all elements with data-en attribute
+  document.querySelectorAll('[data-en]').forEach(function(el) {
+    var decrypted = decrypt(el.getAttribute('data-en'));
+    el.textContent = decrypted;
+  });
+  
+  // Decrypt placeholders
+  document.querySelectorAll('[placeholder]').forEach(function(el) {
+    var ph = el.getAttribute('placeholder');
+    if (ph && ph.length > 10) {
+      try {
+        el.setAttribute('placeholder', decrypt(ph));
+      } catch(e) {}
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
