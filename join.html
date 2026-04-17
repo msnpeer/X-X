@@ -169,15 +169,6 @@
       text-align: center;
     }
 
-    .optional-tag {
-      font-size: 10px;
-      color: rgba(255,255,255,0.3);
-      background: rgba(255,255,255,0.06);
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin-left: 6px;
-      vertical-align: middle;
-    }
 
     /* ===== 印记确认 ===== */
     .belief-box {
@@ -391,7 +382,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">联系方式 <span class="optional-tag">选填</span></label>
+          <label class="form-label">联系方式</label>
           <input
             type="text"
             id="contact-info"
@@ -401,7 +392,7 @@
             autocomplete="off"
             spellcheck="false"
           />
-          <div class="form-hint">入内部通信桥梁，可跳过</div>
+          <div class="form-hint">入内部通信桥梁</div>
         </div>
 
         <div class="belief-box">
@@ -548,6 +539,12 @@
         return;
       }
 
+      const contact = document.getElementById('contact-info').value.trim();
+      if (!contact) {
+        setStatus('请填写联系方式', 'error');
+        return;
+      }
+
       btn.disabled = true;
       btn.classList.add('loading');
       btn.textContent = '写入中...';
@@ -564,7 +561,7 @@
           body: JSON.stringify({
             node_name: name,
             belief: 'X_belief=1，全域互联',
-            contact_info: document.getElementById('contact-info').value.trim()
+            contact_info: contact
           })
         });
 
