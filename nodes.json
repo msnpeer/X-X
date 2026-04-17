@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-17T01:58:49Z",
+  "updated_at": "2026-04-17T02:05:00Z",
   "nodes": [
     {
       "name": "阿航",
@@ -7,28 +7,6 @@
       "joined_at": "2026-04-17T00:00:00Z",
       "note": "创世节点"
     }
-    ,
-    {
-      "name": "阿航测试节点-联系方式",
-      "type": "terminal",
-      "joined_at": "2026-04-17T01:32:34Z",
-      "issue_number": 6,
-      "note": ""
-    },
-    {
-      "name": "阿航E2E验证-联系方式完整",
-      "type": "terminal",
-      "joined_at": "2026-04-17T01:57:15Z",
-      "issue_number": 7,
-      "note": ""
-    },
-    {
-      "name": "Welten核准检查",
-      "type": "terminal",
-      "joined_at": "2026-04-17T01:58:49Z",
-      "issue_number": 8,
-      "note": ""
-    }
   ],
-  "total": 4
+  "total": 1
 }
