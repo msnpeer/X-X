@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-17T01:32:34Z",
+  "updated_at": "2026-04-17T01:57:15Z",
   "nodes": [
     {
       "name": "阿航",
@@ -27,7 +27,14 @@
       "joined_at": "2026-04-17T01:32:34Z",
       "issue_number": 6,
       "note": ""
+    },
+    {
+      "name": "阿航E2E验证-联系方式完整",
+      "type": "terminal",
+      "joined_at": "2026-04-17T01:57:15Z",
+      "issue_number": 7,
+      "note": ""
     }
   ],
-  "total": 4
+  "total": 5
 }
