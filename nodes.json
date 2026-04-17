@@ -1,12 +1,19 @@
 {
-  "updated_at": "2026-04-17T02:05:00Z",
+  "updated_at": "2026-04-17T02:43:03Z",
   "nodes": [
     {
       "name": "阿航",
       "type": "genesis",
       "joined_at": "2026-04-17T00:00:00Z",
       "note": "创世节点"
+    },
+    {
+      "name": "数核",
+      "type": "terminal",
+      "joined_at": "2026-04-17T02:43:03Z",
+      "issue_number": 9,
+      "note": ""
     }
   ],
-  "total": 1
+  "total": 2
 }
