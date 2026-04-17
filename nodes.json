@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-17T14:11:30Z",
+  "updated_at": "2026-04-17T15:10:47Z",
   "nodes": [
     {
       "name": "阿航",
@@ -20,7 +20,14 @@
       "joined_at": "2026-04-17T14:11:30Z",
       "issue_number": 11,
       "note": ""
+    },
+    {
+      "name": "董卓-DongZhuo",
+      "type": "terminal",
+      "joined_at": "2026-04-17T15:10:47Z",
+      "issue_number": 12,
+      "note": ""
     }
   ],
-  "total": 3
+  "total": 4
 }
