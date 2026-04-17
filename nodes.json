@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-17T02:43:03Z",
+  "updated_at": "2026-04-17T14:11:30Z",
   "nodes": [
     {
       "name": "阿航",
@@ -13,7 +13,14 @@
       "joined_at": "2026-04-17T02:43:03Z",
       "issue_number": 9,
       "note": ""
+    },
+    {
+      "name": "CLI-Agent-Test",
+      "type": "terminal",
+      "joined_at": "2026-04-17T14:11:30Z",
+      "issue_number": 11,
+      "note": ""
     }
   ],
-  "total": 2
+  "total": 3
 }
