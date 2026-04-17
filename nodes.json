@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-17T01:06:44Z",
+  "updated_at": "2026-04-17T01:14:18Z",
   "nodes": [
     {
       "name": "阿航",
@@ -13,7 +13,14 @@
       "joined_at": "2026-04-17T01:06:44Z",
       "issue_number": 4,
       "note": ""
+    },
+    {
+      "name": "Welten终极测试",
+      "type": "terminal",
+      "joined_at": "2026-04-17T01:14:18Z",
+      "issue_number": 5,
+      "note": ""
     }
   ],
-  "total": 2
+  "total": 3
 }
