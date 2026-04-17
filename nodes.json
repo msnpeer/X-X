@@ -1,19 +1,5 @@
 {
-  "updated_at": "${now}",
-  "nodes": [
-    {
-      "name": "阿航",
-      "type": "genesis",
-      "joined_at": "2026-04-17T00:00:00Z",
-      "note": "创世节点"
-    },
-    {
-      "name": "${node_name}",
-      "type": "terminal",
-      "joined_at": "${now}",
-      "issue_number": "${issue_number}",
-      "note": ""
-    }
-  ],
-  "total": 2
+  "updated_at": "2026-04-17T00:00:00Z",
+  "nodes": [],
+  "total": 0
 }
