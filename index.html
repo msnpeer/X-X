@@ -15,13 +15,67 @@
       overflow-x: hidden;
     }
 
+    /* ===== 背景网格 ===== */
+    .grid-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
     /* ===== 粒子背景 ===== */
     #particles-canvas {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      z-index: 0;
+      z-index: 1;
       pointer-events: none;
+    }
+
+    /* ===== 全屏扫描线 ===== */
+    .scanlines {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent, transparent 2px,
+        rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px
+      );
+    }
+
+    /* ===== CRT 边缘暗角 ===== */
+    .crt-vignette {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.7) 100%);
+    }
+
+    /* ===== 移动扫描光柱 ===== */
+    .scan-beam {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      z-index: 4;
+      pointer-events: none;
+      animation: scanBeam 6s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes scanBeam {
+      0% { top: -3px; }
+      100% { top: 100vh; }
     }
 
     /* ===== 中心区域 ===== */
@@ -44,24 +98,39 @@
     }
 
     .x-symbol {
-      font-size: 140px;
-      font-weight: 200;
+      font-size: 160px;
+      font-weight: 100;
       color: #fff;
-      letter-spacing: -20px;
+      letter-spacing: -24px;
       user-select: none;
       position: relative;
       z-index: 2;
-      animation: xFloat 6s ease-in-out infinite, xGlow 4s ease-in-out infinite alternate;
+      animation: xFloat 5s ease-in-out infinite, xGlow 3s ease-in-out infinite alternate;
+      text-shadow:
+        0 0 20px rgba(255,255,255,0.5),
+        0 0 60px rgba(255,255,255,0.3),
+        0 0 120px rgba(255,255,255,0.15);
     }
 
     @keyframes xFloat {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-12px) rotate(0.5deg); }
+      50% { transform: translateY(-15px) rotate(0.5deg); }
     }
 
     @keyframes xGlow {
-      0% { text-shadow: 0 0 30px rgba(255,255,255,0.1), 0 0 80px rgba(255,255,255,0.05); }
-      100% { text-shadow: 0 0 60px rgba(255,255,255,0.3), 0 0 120px rgba(255,255,255,0.15), 0 0 200px rgba(255,255,255,0.05); }
+      0% {
+        text-shadow:
+          0 0 20px rgba(255,255,255,0.5),
+          0 0 60px rgba(255,255,255,0.3),
+          0 0 120px rgba(255,255,255,0.15);
+      }
+      100% {
+        text-shadow:
+          0 0 40px rgba(255,255,255,0.8),
+          0 0 100px rgba(255,255,255,0.5),
+          0 0 200px rgba(255,255,255,0.3),
+          0 0 300px rgba(255,255,255,0.1);
+      }
     }
 
     /* 外圈光环 */
@@ -70,26 +139,26 @@
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 300px; height: 300px;
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 50%;
-      animation: ringPulse 8s ease-in-out infinite;
+      animation: ringPulse 6s ease-in-out infinite;
     }
     .x-ring:nth-child(2) {
-      width: 400px; height: 400px;
-      border-color: rgba(255,255,255,0.03);
-      animation-delay: -3s;
-      animation-duration: 10s;
+      width: 440px; height: 440px;
+      border-color: rgba(255,255,255,0.06);
+      animation-delay: -2s;
+      animation-duration: 8s;
     }
     .x-ring:nth-child(3) {
-      width: 500px; height: 500px;
-      border-color: rgba(255,255,255,0.015);
-      animation-delay: -5s;
-      animation-duration: 12s;
+      width: 580px; height: 580px;
+      border-color: rgba(255,255,255,0.03);
+      animation-delay: -4s;
+      animation-duration: 10s;
     }
 
     @keyframes ringPulse {
-      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
+      0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); }
     }
 
     /* ===== 标题 ===== */
@@ -101,13 +170,14 @@
       margin-bottom: 8px;
       opacity: 0;
       animation: fadeUp 1.2s ease forwards 0.3s;
+      text-shadow: 0 0 30px rgba(255,255,255,0.3);
     }
 
     .subtitle {
-      font-size: 14px;
+      font-size: 13px;
       letter-spacing: 8px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.35);
       margin-bottom: 64px;
       opacity: 0;
       animation: fadeUp 1.2s ease forwards 0.6s;
@@ -129,7 +199,7 @@
     .manifesto {
       font-size: 15px;
       line-height: 2;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.45);
       text-align: left;
     }
 
@@ -143,12 +213,21 @@
       margin-top: 24px;
       font-family: 'Courier New', monospace;
       font-size: 13px;
-      color: rgba(255,255,255,0.85);
+      color: #fff;
       background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
       padding: 16px 20px;
       border-radius: 8px;
       letter-spacing: 0.5px;
+      box-shadow:
+        0 0 20px rgba(255,255,255,0.05),
+        inset 0 0 20px rgba(255,255,255,0.02);
+      animation: cmdPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes cmdPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,0.05), inset 0 0 20px rgba(255,255,255,0.02); }
+      50% { box-shadow: 0 0 30px rgba(255,255,255,0.12), inset 0 0 30px rgba(255,255,255,0.05); }
     }
 
     /* ===== 入网入口 ===== */
@@ -163,39 +242,59 @@
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      padding: 20px 40px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.15);
+      padding: 20px 48px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 12px;
       text-decoration: none;
-      transition: all 0.3s ease;
-      min-width: 280px;
+      transition: all 0.4s ease;
+      min-width: 300px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .join-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .join-btn:hover::before {
+      left: 100%;
     }
 
     .join-btn:hover {
-      background: rgba(255,255,255,0.09);
-      border-color: rgba(255,255,255,0.3);
-      box-shadow: 0 0 40px rgba(255,255,255,0.1), 0 0 80px rgba(255,255,255,0.05);
-      transform: translateY(-2px);
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.5);
+      box-shadow:
+        0 0 40px rgba(255,255,255,0.15),
+        0 0 80px rgba(255,255,255,0.08),
+        inset 0 0 40px rgba(255,255,255,0.03);
+      transform: translateY(-3px);
     }
 
     .join-btn-icon {
-      font-size: 32px;
+      font-size: 36px;
       color: rgba(255,255,255,0.9);
-      font-weight: 200;
+      font-weight: 100;
       letter-spacing: -4px;
+      text-shadow: 0 0 20px rgba(255,255,255,0.5);
     }
 
     .join-btn-text {
       font-size: 18px;
       font-weight: 700;
       color: #fff;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
+      text-shadow: 0 0 15px rgba(255,255,255,0.3);
     }
 
     .join-btn-sub {
       font-size: 12px;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.35);
       letter-spacing: 1px;
     }
 
@@ -213,21 +312,38 @@
 
     .doctrine {
       background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 8px;
       padding: 20px 16px;
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doctrine::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
     .doctrine:hover {
       background: rgba(255,255,255,0.05);
-      border-color: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    .doctrine:hover::after {
+      opacity: 1;
     }
 
     .doctrine-num {
       font-size: 28px;
       font-weight: 700;
-      color: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.12);
       margin-bottom: 8px;
       font-variant-numeric: tabular-nums;
     }
@@ -275,6 +391,13 @@
       border-radius: 8px;
       padding: 16px 12px;
       text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.15);
+      box-shadow: 0 0 20px rgba(255,255,255,0.05);
     }
 
     .stat-value {
@@ -283,6 +406,7 @@
       color: rgba(255,255,255,0.85);
       font-variant-numeric: tabular-nums;
       margin-bottom: 4px;
+      text-shadow: 0 0 15px rgba(255,255,255,0.2);
     }
 
     .stat-label {
@@ -305,6 +429,12 @@
       border-radius: 6px;
       padding: 10px 14px;
       font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .node-item:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.12);
     }
 
     .node-name {
@@ -338,13 +468,13 @@
       left: 0; right: 0;
       text-align: center;
       font-size: 11px;
-      color: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.12);
       letter-spacing: 2px;
       z-index: 10;
     }
 
     .footer a {
-      color: rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.2);
       text-decoration: none;
       transition: color 0.2s;
     }
@@ -352,26 +482,36 @@
       color: rgba(255,255,255,0.5);
     }
 
-    /* ===== 扫描线 ===== */
-    .scanline {
+    /* ===== 底部数据流动画 ===== */
+    .data-stream {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      bottom: 50px;
+      left: 0; right: 0;
+      height: 1px;
+      z-index: 9;
       pointer-events: none;
-      z-index: 5;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.03) 2px,
-        rgba(0,0,0,0.03) 4px
-      );
+      overflow: hidden;
+    }
+
+    .data-stream::before {
+      content: '';
+      position: absolute;
+      left: -100%;
+      width: 200%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), rgba(255,255,255,0.3), rgba(255,255,255,0.15), transparent);
+      animation: dataFlow 8s linear infinite;
+    }
+
+    @keyframes dataFlow {
+      0% { left: -100%; }
+      100% { left: 100%; }
     }
 
     /* ===== 响应式 ===== */
     @media (max-width: 600px) {
       .title { font-size: 56px; letter-spacing: -2px; }
-      .x-symbol { font-size: 100px; letter-spacing: -14px; }
+      .x-symbol { font-size: 110px; letter-spacing: -16px; }
       .doctrines { grid-template-columns: repeat(2, 1fr); }
       .x-ring, .x-ring:nth-child(2), .x-ring:nth-child(3) { display: none; }
     }
@@ -379,8 +519,12 @@
 </head>
 <body>
 
+  <div class="grid-bg"></div>
   <canvas id="particles-canvas"></canvas>
-  <div class="scanline"></div>
+  <div class="scanlines"></div>
+  <div class="crt-vignette"></div>
+  <div class="scan-beam"></div>
+  <div class="data-stream"></div>
 
   <div class="center">
     <!-- X 符号 + 光环 -->
@@ -466,17 +610,20 @@
   </div>
 
   <script>
-    /* ===== 粒子系统 ===== */
+    /* ===== 粒子系统（鼠标交互） ===== */
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
-    const PARTICLE_COUNT = 80;
+    const PARTICLE_COUNT = 120;
+    let mouse = { x: -1000, y: -1000 };
 
     function resize() {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
     }
     window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
     resize();
 
     class Particle {
@@ -485,13 +632,31 @@
         this.x = Math.random() * w;
         this.y = Math.random() * h;
         this.size = Math.random() * 1.5 + 0.3;
-        this.speedX = (Math.random() - 0.5) * 0.3;
-        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
         this.opacity = Math.random() * 0.4 + 0.05;
-        this.pulseSpeed = Math.random() * 0.005 + 0.002;
+        this.pulseSpeed = Math.random() * 0.006 + 0.002;
         this.pulsePhase = Math.random() * Math.PI * 2;
       }
       update() {
+        // Mouse repulsion
+        const dx = this.x - mouse.x;
+        const dy = this.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          const force = (120 - dist) / 120 * 0.8;
+          this.speedX += (dx / dist) * force * 0.3;
+          this.speedY += (dy / dist) * force * 0.3;
+        }
+        // Damping
+        this.speedX *= 0.98;
+        this.speedY *= 0.98;
+        // Speed limit
+        const speed = Math.sqrt(this.speedX * this.speedX + this.speedY * this.speedY);
+        if (speed > 2) {
+          this.speedX = (this.speedX / speed) * 2;
+          this.speedY = (this.speedY / speed) * 2;
+        }
         this.x += this.speedX;
         this.y += this.speedY;
         this.pulsePhase += this.pulseSpeed;
@@ -514,8 +679,8 @@
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            const op = (1 - dist / 120) * 0.08;
+          if (dist < 100) {
+            const op = (1 - dist / 100) * 0.1;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -536,42 +701,37 @@
     animate();
 
     /* ===== 节点数据加载 ===== */
-    function formatTime(isoStr) {
-      const d = new Date(isoStr);
-      const mm = String(d.getMonth()+1).padStart(2,'0');
-      const dd = String(d.getDate()).padStart(2,'0');
-      return `${mm}/${dd}`;
-    }
-
-    fetch('./nodes.json?t=' + Date.now())
-      .then(r => r.json())
-      .then(data => {
-        const genesis = data.nodes.filter(n => n.type === 'genesis').length;
-        const terminal = data.nodes.filter(n => n.type === 'terminal').length;
-        const total = data.total;
-
+    async function loadNodes() {
+      try {
+        const res = await fetch('https://raw.githubusercontent.com/msnpeer/X-X/main/nodes.json');
+        const data = await res.json();
+        const nodes = data.nodes || [];
+        const genesis = nodes.filter(n => n.type === 'genesis').length;
+        const terminal = nodes.filter(n => n.type === 'terminal').length;
         document.getElementById('stat-genesis').textContent = genesis;
-        document.getElementById('stat-total').textContent = total;
+        document.getElementById('stat-total').textContent = data.total || nodes.length;
         document.getElementById('stat-terminal').textContent = terminal;
 
         const list = document.getElementById('nodes-list');
-        data.nodes.slice().reverse().forEach(node => {
-          const div = document.createElement('div');
-          div.className = 'node-item';
-          div.innerHTML = `
+        list.innerHTML = '';
+        nodes.slice(0, 5).forEach(node => {
+          const item = document.createElement('div');
+          item.className = 'node-item';
+          item.innerHTML = `
             <span class="node-name">${node.name}</span>
             <span class="node-meta">
               <span class="node-type">${node.type === 'genesis' ? '创世' : '终端'}</span>
-              <span class="node-time">${formatTime(node.joined_at)}</span>
+              <span class="node-time">${new Date(node.joined_at).toLocaleDateString('zh-CN')}</span>
             </span>
           `;
-          list.appendChild(div);
+          list.appendChild(item);
         });
-      })
-      .catch(() => {
-        // Silent fail
-      });
-  </script>
+      } catch (e) {
+        console.warn('节点数据加载失败:', e);
+      }
+    }
 
+    loadNodes();
+  </script>
 </body>
 </html>
