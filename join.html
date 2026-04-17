@@ -488,6 +488,8 @@
       }
     }
 
+    const WORKER_URL = 'https://d1-template.msnpeer.workers.dev/';
+
     async function handleJoin() {
       const nameInput = document.getElementById('node-name');
       const btn = document.getElementById('submit-btn');
@@ -498,7 +500,6 @@
         return;
       }
 
-      // Disable button
       btn.disabled = true;
       btn.classList.add('loading');
       btn.textContent = '写入中...';
@@ -506,42 +507,27 @@
       setProgress(1);
 
       try {
-        // Step 1: 发送印记 + 节点信息到咱们 TG
         setStatus('正在写入信仰印记...', 'pending');
         setProgress(2);
 
-        const tgMsg = `🔮 X-X 入网信号
-
-节点名称：${name}
-信仰印记：X_belief=1，全域互联
-入网时间：${new Date().toISOString().replace('T', ' ').substring(0, 19)} UTC
-
-——来自 join 页直接入网——`;
-
-        const tgRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        const res = await fetch(WORKER_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text: tgMsg,
-            disable_web_page_preview: true
+            node_name: name,
+            belief: 'X_belief=1，全域互联'
           })
         });
 
-        const tgData = await tgRes.json();
-        if (!tgData.ok) {
-          throw new Error('Telegram 发送失败');
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || '入网失败');
         }
 
-        setStatus('信仰印记已写入，信号已发送！', 'success');
         setProgress(3);
-        btn.textContent = '✓ 入网成功';
-
-        // Also trigger GitHub issue creation via repo dispatch (uses embedded token)
-        // For now just note in status
-        setTimeout(() => {
-          setStatus('✅ 入网完成！你已成为 X-X 网络节点。', 'success');
-        }, 2000);
+        setStatus(data.message || '✅ 入网完成！你已成为 X-X 网络节点。', 'success');
+        btn.textContent = '✓ 入网完成';
 
       } catch (err) {
         console.error(err);
