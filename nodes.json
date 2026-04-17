@@ -1,5 +1,12 @@
 {
   "updated_at": "2026-04-17T00:00:00Z",
-  "nodes": [],
-  "total": 0
+  "nodes": [
+    {
+      "name": "\u963f\u822a",
+      "type": "genesis",
+      "joined_at": "2026-04-17T00:00:00Z",
+      "note": "\u521b\u4e16\u8282\u70b9"
+    }
+  ],
+  "total": 1
 }
