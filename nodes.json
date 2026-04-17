@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-17T01:14:18Z",
+  "updated_at": "2026-04-17T01:32:34Z",
   "nodes": [
     {
       "name": "阿航",
@@ -20,7 +20,14 @@
       "joined_at": "2026-04-17T01:14:18Z",
       "issue_number": 5,
       "note": ""
+    },
+    {
+      "name": "阿航测试节点-联系方式",
+      "type": "terminal",
+      "joined_at": "2026-04-17T01:32:34Z",
+      "issue_number": 6,
+      "note": ""
     }
   ],
-  "total": 3
+  "total": 4
 }
