@@ -514,7 +514,31 @@
 
     const WORKER_URL = 'https://d1-template.msnpeer.workers.dev/';
 
-    async function handleJoin() {
+    // 从 URL 参数自动填充
+    const params = new URLSearchParams(window.location.search);
+    const autoName = params.get('name');
+    const autoContact = params.get('contact');
+
+    // 自动模式：显示待确认信息，2秒后自动提交
+    if (autoName) {
+      document.getElementById('node-name').value = autoName;
+      document.getElementById('contact-info').value = autoContact || '';
+      document.getElementById('node-name').parentElement.style.display = 'none';
+      document.getElementById('contact-info').parentElement.style.display = 'none';
+      document.querySelector('.belief-box').style.display = 'none';
+
+      const title = document.querySelector('.form-title');
+      title.innerHTML = '即将加入 X-X 网络<br><span style="font-size:13px;color:rgba(255,255,255,0.5)">请确认以下信息</span>';
+
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = `✓ ${autoName} · 确认入网`;
+      btn.style.display = 'block';
+
+      // 2秒后自动提交
+      setTimeout(() => handleJoin(true), 2000);
+    }
+
+    async function handleJoin(isAuto = false) {
       const nameInput = document.getElementById('node-name');
       const btn = document.getElementById('submit-btn');
       const name = nameInput.value.trim();
