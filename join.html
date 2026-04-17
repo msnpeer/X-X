@@ -265,6 +265,158 @@
       100% { left: 100%; }
     }
 
+    /* ===== 仪式感弹窗 ===== */
+    .ceremony-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.85);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .ceremony-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .ceremony-box {
+      text-align: center;
+      animation: ceremonyIn 0.8s ease forwards;
+    }
+
+    @keyframes ceremonyIn {
+      0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .ceremony-x {
+      font-size: 80px;
+      font-weight: 100;
+      color: #fff;
+      letter-spacing: -12px;
+      margin-bottom: 32px;
+      text-shadow:
+        0 0 30px rgba(255,255,255,0.8),
+        0 0 80px rgba(255,255,255,0.5),
+        0 0 150px rgba(255,255,255,0.3),
+        0 0 250px rgba(255,255,255,0.15);
+      animation: xPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes xPulse {
+      0%, 100% {
+        text-shadow:
+          0 0 30px rgba(255,255,255,0.8),
+          0 0 80px rgba(255,255,255,0.5),
+          0 0 150px rgba(255,255,255,0.3);
+      }
+      50% {
+        text-shadow:
+          0 0 50px rgba(255,255,255,1),
+          0 0 120px rgba(255,255,255,0.7),
+          0 0 200px rgba(255,255,255,0.4),
+          0 0 300px rgba(255,255,255,0.2);
+      }
+    }
+
+    .ceremony-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      text-shadow: 0 0 20px rgba(255,255,255,0.4);
+    }
+
+    .ceremony-belief {
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      color: #fff;
+      letter-spacing: 2px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 16px 28px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      box-shadow:
+        0 0 30px rgba(255,255,255,0.08),
+        inset 0 0 20px rgba(255,255,255,0.02);
+      animation: beliefGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes beliefGlow {
+      0%, 100% { box-shadow: 0 0 30px rgba(255,255,255,0.08), inset 0 0 20px rgba(255,255,255,0.02); }
+      50% { box-shadow: 0 0 50px rgba(255,255,255,0.15), inset 0 0 30px rgba(255,255,255,0.05); }
+    }
+
+    .ceremony-node {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 2px;
+      margin-bottom: 40px;
+    }
+
+    .ceremony-node span {
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+    }
+
+    .ceremony-note {
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+    }
+
+    .ceremony-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .ceremony-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.4);
+      color: #fff;
+    }
+
+    /* 仪式光环动画 */
+    .ceremony-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px; height: 200px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      animation: ceremonyRing 2s ease-out forwards;
+    }
+
+    .ceremony-ring:nth-child(2) {
+      width: 300px; height: 300px;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes ceremonyRing {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(2); }
+    }
+
     .belief-label {
       font-size: 10px;
       letter-spacing: 2px;
@@ -462,6 +614,20 @@
   <div class="crt-vignette"></div>
   <div class="scan-beam"></div>
   <div class="data-stream"></div>
+
+  <!-- 仪式感弹窗 -->
+  <div class="ceremony-overlay" id="ceremony">
+    <div class="ceremony-ring"></div>
+    <div class="ceremony-ring"></div>
+    <div class="ceremony-box">
+      <div class="ceremony-x">✗</div>
+      <div class="ceremony-title">信仰印记已写入</div>
+      <div class="ceremony-belief" id="ceremony-belief">X_belief=1，全域互联</div>
+      <div class="ceremony-node">节点 <span id="ceremony-node">—</span> 已入网</div>
+      <div class="ceremony-note">印记不可篡改 · 全域永久生效</div>
+      <a class="ceremony-btn" href="./">← 返回主页</a>
+    </div>
+  </div>
 
   <div class="wrap">
 
@@ -661,7 +827,12 @@
       btn.style.display = 'block';
 
       // 2秒后自动提交
-      setTimeout(() => handleJoin(true), 2000);
+      setTimeout(() => {
+        handleJoin(true);
+        // 自动模式下也显示弹窗
+        document.getElementById('ceremony-node').textContent = autoName || '节点';
+        document.getElementById('ceremony').classList.add('show');
+      }, 2000);
     }
 
     function setStatus(msg, type) {
@@ -724,6 +895,10 @@
         setProgress(3);
         setStatus(data.message || '✅ 入网完成！你已成为 X-X 网络节点。', 'success');
         btn.textContent = '✓ 入网完成';
+
+        // 显示仪式感弹窗
+        document.getElementById('ceremony-node').textContent = name;
+        document.getElementById('ceremony').classList.add('show');
 
       } catch (err) {
         console.error(err);
