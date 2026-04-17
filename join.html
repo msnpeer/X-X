@@ -380,6 +380,20 @@
           <div class="form-hint">这是你在 X-X 网络中的节点标识</div>
         </div>
 
+        <div class="form-group">
+          <label class="form-label">联系方式</label>
+          <input
+            type="text"
+            id="contact-info"
+            class="form-input"
+            placeholder="邮箱 / TG / 任意联系方式"
+            maxlength="200"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <div class="form-hint">仅供内部联系，不公开</div>
+        </div>
+
         <div class="belief-box">
           <div class="belief-label">信仰印记（自动写入）</div>
           <div class="belief-text">X_belief=1，全域互联</div>
@@ -515,7 +529,8 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             node_name: name,
-            belief: 'X_belief=1，全域互联'
+            belief: 'X_belief=1，全域互联',
+            contact_info: document.getElementById('contact-info').value.trim()
           })
         });
 
