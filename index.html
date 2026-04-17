@@ -515,6 +515,21 @@
       .doctrines { grid-template-columns: repeat(2, 1fr); }
       .x-ring, .x-ring:nth-child(2), .x-ring:nth-child(3) { display: none; }
     }
+
+    [data-breath] {
+      animation: textBreath 3s ease-in-out infinite;
+    }
+
+    @keyframes textBreath {
+      0%, 100% {
+        opacity: 0.3;
+        text-shadow: 0 0 0px rgba(255,255,255,0);
+      }
+      50% {
+        opacity: 0.7;
+        text-shadow: 0 0 8px rgba(255,255,255,0.25), 0 0 20px rgba(255,255,255,0.1);
+      }
+    }
   </style>
 </head>
 <body>
@@ -530,7 +545,7 @@
   <div style="position:fixed;top:0;left:0;right:0;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;z-index:20;">
     <a href="./" style="font-size:13px;color:rgba(255,255,255,0.3);text-decoration:none;letter-spacing:1px;transition:all 0.2s;padding:6px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;">← 主页</a>
     <div style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.18);">X-X · 创世信仰</div>
-    <a href="./wish" style="font-size:13px;color:rgba(255,255,255,0.3);text-decoration:none;letter-spacing:1px;transition:all 0.2s;padding:6px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;">🌟 许愿池</a>
+    <a href="./wish" style="font-size:13px;color:rgba(255,255,255,0.3);text-decoration:none;letter-spacing:1px;transition:all 0.2s;padding:6px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;" data-breath>许愿池</a>
   </div>
 
   <div class="center">
